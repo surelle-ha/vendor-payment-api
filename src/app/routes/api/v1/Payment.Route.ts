@@ -4,12 +4,16 @@ module.exports = (app: Express): Router => {
 	const router = Router();
 	const { Vendor: VendorController, Payment: PaymentController } = app.z.controllers;
 	const { Auth: AuthMiddleware, Permission: PermissionMiddleware } = app.z.middlewares;
+	const { Payment: PaymentValidation } = app.z.validations;
 
 	app.use("/api/v1/payments", [AuthMiddleware.authenticate]);
 
 	router.post(
 		"/payments",
-		[PermissionMiddleware.authorize("create-payment")],
+		[
+			PermissionMiddleware.authorize("create-payment"),
+			PaymentValidation.check.create
+		],
 		PaymentController.create
 	);
 
@@ -27,7 +31,10 @@ module.exports = (app: Express): Router => {
 
 	router.patch(
 		"/payments/:payment_id",
-		[PermissionMiddleware.authorize("update-payment")],
+		[
+			PermissionMiddleware.authorize("update-payment"),
+			PaymentValidation.check.update
+		],
 		PaymentController.update
 	);
 

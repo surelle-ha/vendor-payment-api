@@ -5,20 +5,189 @@
 </div>
 
 <div align="center">
-	<h1 style="letter-spacing: 7px">ZENTINEL.TS</h1>
+	<h1 style="letter-spacing: 7px">VENDOR PAYMENT MANAGEMENT API</h1>
+	<h3 style="letter-spacing: 7px">ZENTINEL.TS</h3>
 
 ![ExpressJS](https://img.shields.io/badge/Express.JS-black?style=for-the-badge&logo=express)
 ![NodeJS](https://img.shields.io/badge/Node.JS-black?style=for-the-badge&logo=node.js)
 
 </div>
 
-ZentinelTS is a Javascript boilerplate that provides preset configurations and semi opinionated syntax. This enable users to develop Express server without building it from the scratch.
+Simple REST API using Node.js + Express + PostgreSQL for managing vendors and payments. This project uses my personal boilerplate called ZentinelTS; a TypeScript boilerplate that provides preset configurations and semi opinionated syntax. This enable users to develop Express server without building it from the scratch.
 
 <div align="center">
 
 </div>
 
+## Project Overview - Vendor Payment Management API
+This project is a RESTful API designed to manage vendors and their payments. It allows users to create, update, delete, and retrieve vendor information, as well as manage payments associated with those vendors. The API is built using Node.js and Express, with Sequelize as the ORM for database interactions.
+
+## Technologies Used
+- **Node.js**: JavaScript runtime for building scalable network applications.
+- **Express**: Web framework for Node.js, providing robust features for building web and mobile applications.
+- **PostgreSQL**: Relational database management system used for storing vendor and payment data.
+- **Sequelize**: Promise-based Node.js ORM for PostgreSQL, providing an easy-to-use interface for database operations.
+- **TypeScript**: Superset of JavaScript that adds static types, enhancing code quality and maintainability.
+- **ZentinelTS**: A personal boilerplate that provides a structured and efficient way to build Express applications with TypeScript.
+- **Redis**: In-memory data structure store used for caching and session management.
+
 ## Features
+- **Vendor Management**: Create, update, delete, and retrieve vendor information.
+- **Payment Management**: Create, update, delete, and retrieve payments associated with vendors.
+- **Authentication**: Secure API endpoints with JWT-based authentication.
+- **Authorization**: Role-based access control to restrict actions based on user permissions.
+
+## Getting Started
+To get started with the Vendor Payment Management API, follow these steps:
+1. **Clone the Repository**: 
+   ```bash
+   git clone https://github.com/surelle-ha/vendor-payment-api.git
+   ```
+2. **Install Dependencies**:
+   ```bash
+   cd vendor-payment-api
+   npm install
+   ```
+3. **Configure Environment Variables**: Create a `.env` file in the root directory and set the necessary environment variables, such as database connection details and JWT secret. Use the provided `.env.example` as a reference.
+   ```bash
+   cp .env.example .env
+   ```
+4. **Run Migrations**: 
+   ```bash
+   npm run db:reset
+   ```
+5. **Start the Server**:
+   ```bash
+   npm run start:local
+   ```
+6. **Validate the API accessibilty**: To check if the API is running, you can access the web UI at `http://localhost:8800/`. If you are able to see the ZentinelTS web UI, then the API is running successfully.
+	
+	![image](api-docs/assets/zentinel-webui.gif)
+
+## API Documentation
+This API documentation provides detailed information about the available endpoints, request parameters, and response formats.
+
+- **Authentication** - To access protected endpoints, you need to authenticate using a JWT token. The token can be obtained
+by logging in with valid user credentials. Include the token in the `Authorization` header of your requests.
+  - `POST /auth/login`: Authenticate a user and retrieve a JWT token.
+  - `POST /auth/register`: Register a new user.
+  - `POST /auth/logout`: Logout account.
+- **Vendors**
+  - `GET /vendors`: Retrieve a list of all vendors.
+  - `POST /vendors`: Create a new vendor.
+  - `GET /vendors/:id`: Retrieve a specific vendor by ID.
+  - `PATCH /vendors/:id`: Update a specific vendor by ID.
+  - `DELETE /vendors/:id`: Delete a specific vendor by ID.
+  - `DELETE /vendors`: Delete all vendors.
+  - `POST /vendors/:vendor_id/payments`: Assign payment for a specific vendor.
+- **Payments**
+  - `GET /payments/:id`: Retrieve a specific payment by ID.
+  - `GET /payments`: Retrieve a list of all payments.
+  - `POST /payments`: Create a new payment.
+  - `PATCH /payments/:id`: Update a specific payment by ID.
+  - `DELETE /payments/:id`: Delete a specific payment by ID.
+  - `DELETE /payments`: Delete all payments.
+
+## Project Structure
+The project follows a modular structure, with separate directories for controllers, models, routes, validations, and middlewares. This organization helps maintain a clean and manageable codebase.	
+
+```
+# Vendor Payment Management API
+# `src` is the root directory of the project.
+# The project structure is as follows:
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂controllers
+ ┃ ┃ ┣ 📜Auth.Controller.ts
+ ┃ ┃ ┣ 📜Payment.Controller.ts
+ ┃ ┃ ┣ 📜User.Controller.ts
+ ┃ ┃ ┗ 📜Vendor.Controller.ts
+ ┃ ┣ 📂exceptions
+ ┃ ┃ ┗ 📜Common.Exception.ts
+ ┃ ┣ 📂middlewares
+ ┃ ┃ ┣ 📜Auth.Middleware.ts
+ ┃ ┃ ┗ 📜Permission.Middleware.ts
+ ┃ ┣ 📂models
+ ┃ ┃ ┣ 📜Payment.Model.ts
+ ┃ ┃ ┣ 📜Permission.Model.ts
+ ┃ ┃ ┣ 📜Role.Model.ts
+ ┃ ┃ ┣ 📜Role_Permission.Model.ts
+ ┃ ┃ ┣ 📜Session.Model.ts
+ ┃ ┃ ┣ 📜User.Model.ts
+ ┃ ┃ ┣ 📜Vendor.Model.ts
+ ┃ ┃ ┗ 📜Vendor_Payment.Model.ts
+ ┃ ┣ 📂routes
+ ┃ ┃ ┣ 📂api
+ ┃ ┃ ┃ ┗ 📂v1
+ ┃ ┃ ┃ ┃ ┣ 📜Auth.Route.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Payment.Route.ts
+ ┃ ┃ ┃ ┃ ┣ 📜User.Route.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Vendor.Route.ts
+ ┃ ┃ ┃ ┃ ┗ 📜Webhook.Route.ts
+ ┃ ┃ ┗ 📂web
+ ┃ ┃ ┃ ┗ 📜Home.Route.ts
+ ┃ ┗ 📂validations
+ ┃ ┃ ┣ 📜Auth.Validation.ts
+ ┃ ┃ ┣ 📜Payment.Validation.ts
+ ┃ ┃ ┗ 📜Vendor.Validation.ts
+ ┣ 📂config
+ ┃ ┣ 📜app.ts
+ ┃ ┣ 📜bootstrap.ts
+ ┃ ┣ 📜cache.ts
+ ┃ ┣ 📜compress.ts
+ ┃ ┣ 📜cors.ts
+ ┃ ┣ 📜database.ts
+ ┃ ┣ 📜exception.ts
+ ┃ ┣ 📜helmet.ts
+ ┃ ┣ 📜logger.ts
+ ┃ ┣ 📜mailer.ts
+ ┃ ┣ 📜maintenance.ts
+ ┃ ┣ 📜prometheus.ts
+ ┃ ┣ 📜ratelimit.ts
+ ┃ ┣ 📜redis.ts
+ ┃ ┣ 📜socket.ts
+ ┃ ┗ 📜storage.ts
+ ┣ 📂database
+ ┃ ┣ 📂factories
+ ┃ ┃ ┗ 📜User.Factory.js
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📜00000000000000-create-role.js
+ ┃ ┃ ┣ 📜00000000000001-create-user.js
+ ┃ ┃ ┣ 📜00000000000002-create-session.js
+ ┃ ┃ ┣ 📜00000000000003-create-permission.js
+ ┃ ┃ ┣ 📜00000000000004-create-role-permission.js
+ ┃ ┃ ┣ 📜00000000000005-create-vendor.js
+ ┃ ┃ ┣ 📜00000000000006-create-payment.js
+ ┃ ┃ ┗ 📜00000000000007-create-vendor-payment.js
+ ┃ ┗ 📂seeders
+ ┃ ┃ ┣ 📜00000000000000-demo-roles.js
+ ┃ ┃ ┣ 📜00000000000001-demo-users.js
+ ┃ ┃ ┣ 📜00000000000002-demo-permissions.js
+ ┃ ┃ ┗ 📜00000000000003-demo-rolepermissions.js
+ ┣ 📂declaration
+ ┃ ┗ 📜framework.d.ts
+ ┣ 📂public
+ ┃ ┣ 📂css
+ ┃ ┃ ┗ 📜style.css
+ ┃ ┣ 📂js
+ ┃ ┃ ┗ 📜socket.js
+ ┃ ┗ 📜index.ejs
+ ┣ 📂storage
+ ┃ ┣ 📂docs
+ ┃ ┃ ┣ 📂_astro
+ ┃ ┃ ┣ 📂guides
+ ┃ ┃ ┣ 📜404.html
+ ┃ ┃ ┣ 📜favicon.svg
+ ┃ ┃ ┗ 📜index.html
+ ┃ ┣ 📂logs
+ ┃ ┃ ┣ 📜error.log
+ ┃ ┃ ┣ 📜fatal.log
+ ┃ ┃ ┣ 📜info.log
+ ┃ ┃ ┗ 📜warn.log
+ ┃ ┗ 📂sequelize-ui
+ ┗ 📜server.ts
+```
+## About ZentinelTS
 
 Below are the features of Zentinel.TS:
 

@@ -4,7 +4,7 @@ import { Express, Request, Response } from "express";
 
 module.exports = (app: Express) => {
     const { env } = app.z;
-    const { User, Role, Vendor, Payment } = app.z.models;
+    const { Vendor, Payment, Vendor_Payment } = app.z.models;
     const { NotFoundError } = app.z.exceptions.Common
 
     const Controller: object = {
@@ -83,6 +83,29 @@ module.exports = (app: Express) => {
                 res.status(500).json({ error: "Server Error", message: err.message });
             }
         },
+        assign: async (req: Request, res: Response) => {
+            try {
+                const payment = await Payment.findByPk(req.body.payment_id);
+                if (!payment) {
+                    throw new NotFoundError("Payment not found");
+                }
+                const vendor = await Vendor.findByPk(req.params.vendor_id);
+                if (!vendor) {
+                    throw new NotFoundError("Vendor not found");
+                }
+                await Vendor_Payment.create({
+                    vendor_id: vendor.id,
+                    payment_id: payment.id,
+                });
+                res.status(200).json({ message: "Payment assigned to vendor", paymentData: payment });
+            } catch (err: any) {
+                if (err instanceof NotFoundError) {
+                    res.status(404).json({ message: err.message });
+                } else {
+                    res.status(500).json({ error: "Server Error", message: err.message });
+                }
+            }
+        }
     };
 
     return Controller;

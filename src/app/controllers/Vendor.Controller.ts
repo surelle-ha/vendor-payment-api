@@ -4,7 +4,7 @@ import { Express, Request, Response } from "express";
 
 module.exports = (app: Express) => {
     const { env } = app.z;
-    const { User, Role, Vendor } = app.z.models;
+    const { Payment, Vendor } = app.z.models;
     const { NotFoundError } = app.z.exceptions.Common
 
     const Controller: object = {
@@ -25,12 +25,32 @@ module.exports = (app: Express) => {
         },
         getVendor: async (req: Request, res: Response) => {
             try {
-                const vendor = await Vendor.findByPk(req.params.vendor_id);
+                const vendor = await Vendor.findByPk(req.params.vendor_id, {
+                    include: [{ model: Payment, as: "Payments" }],
+                });
                 if (!vendor) {
                     throw new NotFoundError("Vendor not found");
                 }
+
                 const vendorData = vendor.get({ plain: true });
-                res.status(200).json(vendorData);
+                const pendingPayments = vendorData.Payments.filter((payment: { status: string; }) => payment.status === "pending");
+                const historicalPayments = vendorData.Payments.filter((payment: { status: string; createdAt: string; }) => {
+                    if (payment.status === "pending") return false;
+
+                    const filterByStatus = req.query.status ? payment.status === req.query.status : true;
+                    const filterByDate = req.query.date ? new Date(payment.createdAt).toISOString().startsWith(req.query.date as string) : true;
+
+                    return filterByStatus && filterByDate;
+                });
+
+                delete vendorData.Payments;
+                const response = {
+                    ...vendorData,
+                    pending_payments: pendingPayments,
+                    historical_payments: historicalPayments,
+                };
+
+                res.status(200).json(response);
             } catch (err: any) {
                 if (err instanceof NotFoundError) {
                     res.status(404).json({ message: err.message });

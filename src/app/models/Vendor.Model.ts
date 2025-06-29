@@ -30,9 +30,19 @@ module.exports = function (sequelize: Sequelize) {
 		{
 			sequelize,
 			modelName: "Vendor",
+			tableName: "Vendors",
 			timestamps: true
 		}
 	);
+
+	Vendor.associate = function (models: any) {
+		Vendor.belongsToMany(models.Payment, {
+			through: "Vendor_Payment",
+			as: "Payments",
+			foreignKey: "vendor_id",
+			otherKey: "payment_id",
+		});
+	};
 
 	return Vendor;
 };
