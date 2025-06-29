@@ -66,6 +66,7 @@ To get started with the Vendor Payment Management API, follow these steps:
 
 ## API Documentation
 This API documentation provides detailed information about the available endpoints, request parameters, and response formats.
+> Postman exported file collection available at [Documentation Postman Collection](api-docs/Vendor-API.postman_collection.json).
 
 - **Authentication** - To access protected endpoints, you need to authenticate using a JWT token. The token can be obtained
 by logging in with valid user credentials. Include the token in the `Authorization` header of your requests.
