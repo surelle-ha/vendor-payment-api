@@ -1,0 +1,6 @@
+.env
+.todo
+
+node_modules
+server
+docker/volume

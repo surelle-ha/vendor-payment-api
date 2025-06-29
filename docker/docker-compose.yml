@@ -1,0 +1,127 @@
+version: "3.8"
+
+services:
+  app:
+    image: surelle/zentinel-app:latest
+    ports:
+      - target: 8800
+        published: 8800
+        mode: host
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_HOST: mysql
+      REDIS_HOST: redis
+    volumes:
+      - ./volume/app-storage:/server/storage
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - zentinel-network
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.7"
+          memory: 300M
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: Izukishun@30
+      MYSQL_DATABASE: ardeux
+    volumes:
+      - ./volume/mysql-data:/var/lib/mysql
+    networks:
+      - zentinel-network
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - target: 80
+        published: 8111
+        mode: host
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    networks:
+      - zentinel-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - zentinel-network
+    volumes:
+      - ./volume/redis-data:/data
+    deploy:
+      replicas: 1
+
+  redisinsight:
+    image: redis/redisinsight
+    ports:
+      - target: 5540
+        published: 5540
+        mode: host
+    networks:
+      - zentinel-network
+    volumes:
+      - ./volume/redis-insight:/data
+    deploy:
+      replicas: 1
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/certs:/etc/nginx/certs
+    networks:
+      - zentinel-network
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
+  # sonarqube:
+  #   image: sonarqube:latest
+  #   ports:
+  #     - "9000:9000"
+  #   networks:
+  #     - zentinel-network
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - zentinel-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - target: 3000
+        published: 3000
+        mode: host
+    volumes:
+      - ./volume/grafana-storage:/var/lib/grafana
+    networks:
+      - zentinel-network
+
+networks:
+  zentinel-network:
+    driver: overlay
