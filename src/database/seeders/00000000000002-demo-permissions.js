@@ -35,7 +35,55 @@ module.exports = {
 					description: "Get User(s)",
 					createdAt: new Date(),
 					updatedAt: new Date(),
-				}
+				},
+				{
+					name: "create-vendor",
+					description: "Create Vendor",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "delete-vendor",
+					description: "Delete Vendor",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "update-vendor",
+					description: "Update Vendor",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "fetch-vendor",
+					description: "Get Vendor(s)",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "create-payment",
+					description: "Create Payment",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "delete-payment",
+					description: "Delete Payment",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "update-payment",
+					description: "Update Payment",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					name: "fetch-payment",
+					description: "Get Payment(s)",
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
 			],
 			{}
 		);

@@ -17,8 +17,8 @@
 		"start:dev": "cross-env APP_ENV=development nodemon ./server/server",
 		"start:prod": "cross-env APP_ENV=production nodemon ./server/server",
 		"installer": "npm upgrade && npm install -g depcheck kill-port cross-env nodemon copy && npm install && copy .env.example .env && npm run build",
-		"db:up": "npm run db:create && npm run db:migrate",
-		"db:reset": "npm run db:drop && npm run db:up && npx sequelize db:seed:all",
+		"db:up": "npm run db:migrate",
+		"db:reset": "npm run db:rollback:all && npm run db:up && npx sequelize db:seed:all",
 		"db:create": "npx sequelize db:create",
 		"db:drop": "npx sequelize db:drop",
 		"db:migrate": "npx sequelize db:migrate",
@@ -34,7 +34,9 @@
 		"docker:check": "docker stack ps zentinel-stack && docker stack inspect zentinel-stack",
 		"docker:remove": "docker stack rm zentinel-stack",
 		"docker:scale-down": "docker service scale zentinel-stack_app=1",
-		"docker:clean": "docker container prune -f"
+		"docker:clean": "docker container prune -f",
+		"prepare": "husky",
+		"commit": "commit"
 	},
 	"dependencies": {
 		"@faker-js/faker": "^8.4.1",
@@ -79,6 +81,7 @@
 		"node-cache": "^5.1.2",
 		"node-schedule": "^2.1.1",
 		"nodemailer": "^6.9.14",
+		"pg": "^8.16.3",
 		"pino": "^9.3.2",
 		"pino-pretty": "^11.2.2",
 		"redis": "^4.7.0",

@@ -12,7 +12,7 @@ module.exports = {
 			middle_name: "Admin", 
 			last_name: "Admin", 
 			email: "admin@admin.com",
-			password: "$2b$10$lzCh/hqYzxCIEesl07A67OYntwKJdT/qsdc9pZipKDVRqm5iPIJF.",
+			password: "$2b$12$IXykuuBFLlEbbJGdjn4foOPTKYvCEM7XcV9iLWYhP.BQa9ocfvefC",
 			role_id: 1,
 			email_verified: true,
 			status: "Active",

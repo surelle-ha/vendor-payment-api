@@ -14,8 +14,8 @@ module.exports = {
 				type: Sequelize.UUID,
 				allowNull: false,
 				references: {
-					model: "Users", // Assumes your User table is named 'Users'
-					key: "id", // Assumes the primary key on the User table is 'id'
+					model: "Users",
+					key: "id",
 				},
 				onUpdate: "CASCADE",
 				onDelete: "CASCADE",
@@ -36,9 +36,7 @@ module.exports = {
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
-				defaultValue: Sequelize.literal(
-					"CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-				),
+				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 		});
 	},

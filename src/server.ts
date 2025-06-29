@@ -7,7 +7,7 @@ const os = require("os");
 const { env, server, logger } = app.z;
 
 server.listen(env.app.port, () => {
-	// clear();
+	clear();
 	console.log(
 		chalk.blue(
 			figlet.textSync(env.app.name, {

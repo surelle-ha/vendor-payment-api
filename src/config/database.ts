@@ -8,11 +8,15 @@ module.exports = async function setupDatabase(app: Express): Promise<void> {
 		port: env.database.port,
 		dialect: env.database.type,
 		logging: false,
+		dialectOptions: {
+			ssl: env.database.type === 'postgres' ? { require: true, rejectUnauthorized: false } : false,
+		},
 	});
 	try {
 		await app.z.sequelize.authenticate();
 		app.z.logger.info(`Database connected successfully`);
-	} catch (error) {
-		app.z.logger.error(`[SQL] Connection Error`, error);
+	} catch (error: any) {
+		console.log(error)
+		app.z.logger.error(`[SQL] Connection Error`, error.message);
 	}
 }

@@ -166,6 +166,10 @@ const zentinel = {
 		port: process.env.DATABASE_PORT,
 
 		dialect: process.env.DATABASE_TYPE,
+
+		dialectOptions: {
+			ssl: process.env.DATABASE_TYPE === 'postgres' ? { require: true, rejectUnauthorized: false } : false,
+		},
 	},
 	development: {
 		username: process.env.DATABASE_USER,
@@ -179,6 +183,10 @@ const zentinel = {
 		port: process.env.DATABASE_PORT,
 
 		dialect: process.env.DATABASE_TYPE,
+
+		dialectOptions: {
+			ssl: process.env.DATABASE_TYPE === 'postgres' ? { require: true, rejectUnauthorized: false } : false,
+		},
 	},
 	production: {
 		username: process.env.DATABASE_USER,
@@ -192,6 +200,10 @@ const zentinel = {
 		port: process.env.DATABASE_PORT,
 
 		dialect: process.env.DATABASE_TYPE,
+
+		dialectOptions: {
+			ssl: process.env.DATABASE_TYPE === 'postgres' ? { require: true, rejectUnauthorized: false } : false,
+		},
 	},
 };
 
