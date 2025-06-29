@@ -70,8 +70,90 @@ This API documentation provides detailed information about the available endpoin
 - **Authentication** - To access protected endpoints, you need to authenticate using a JWT token. The token can be obtained
 by logging in with valid user credentials. Include the token in the `Authorization` header of your requests.
   - `POST /auth/login`: Authenticate a user and retrieve a JWT token.
+      - Request Body:
+		```json
+		{
+		  "email": "admin@admin.com",
+		  "password": "123123123",
+		}
+		```
+	  - Response:
+		```json
+		{
+			"status": "success",
+			"message": "Successfully Authenticated.",
+			"userData": {
+				"user": {
+					"id": "b4e89e06-4403-43...",
+					"first_name": "Admin",
+					"middle_name": "Admin",
+					"last_name": "Admin",
+					"email": "admin@admin.com",
+					"email_verified": true,
+					"status": "Active",
+					"role_id": 1
+				},
+				"token": "eyJhbGciOiJIUzI1Ni...."
+			}
+		}
+		```
   - `POST /auth/register`: Register a new user.
+	  - Request Body:
+		```json
+		{
+		  "first_name": "Admin",
+		  "middle_name": "Admin",
+		  "last_name": "Admin",
+		  "email": "admin@admin.com",
+		  "password": "123123123"
+		}
+		```
+		- Validation Error: This will show if the request body does not meet the validation criteria.
+		````json
+		{
+			"error": "Validation Error",
+			"message": [
+				{
+					"type": "field",
+					"msg": "Last Name is required",
+					"path": "last_name",
+					"location": "body"
+				},
+				{
+					"type": "field",
+					"msg": "Last Name must be at least 2 characters long",
+					"path": "last_name",
+					"location": "body"
+				},
+				{
+					"type": "field",
+					"msg": "Invalid email address",
+					"path": "email",
+					"location": "body"
+				},
+				{
+					"type": "field",
+					"msg": "Password is required",
+					"path": "password",
+					"location": "body"
+				},
+				{
+					"type": "field",
+					"msg": "Password must be at least 6 characters long",
+					"path": "password",
+					"location": "body"
+				}
+			]
+		}
+		````
   - `POST /auth/logout`: Logout account.
+	  - Logout must have a valid JWT token in the `Authorization` header.
+	  - Request:
+	    ```shell
+		curl --location --request POST 'http://localhost:8800/api/v1/auth/logout' \
+		--header 'Authorization: ••••••' \
+		--data ''
+		```
 - **Vendors**
   - `GET /vendors`: Retrieve a list of all vendors.
   - `POST /vendors`: Create a new vendor.

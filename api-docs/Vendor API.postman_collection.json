@@ -1,0 +1,904 @@
+{
+	"info": {
+		"_postman_id": "006040fc-6861-4cce-85e8-9accbda9377d",
+		"name": "Vendor API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38762390",
+		"_collection_link": "https://rcndevs.postman.co/workspace/My-Workspace~89c51e05-2b58-40bd-856d-918e36861c09/collection/38762390-006040fc-6861-4cce-85e8-9accbda9377d?action=share&source=collection_link&creator=38762390"
+	},
+	"item": [
+		{
+			"name": "Vendor",
+			"item": [
+				{
+					"name": "Vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vendor Test\",\r\n    \"contact\": \"09215663968\",\r\n    \"bank_account\": \"Test Account 123\",\r\n    \"bank_number\": \"Test Bank Account 123\",\r\n    \"address\": \"Philippines\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vendor - Assign Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors/1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vendor Test1\",\r\n    \"contact\": \"09215663968123\",\r\n    \"bank_account\": \"Test Account 123123\",\r\n    \"bank_number\": \"Test Bank Account 123123\",\r\n    \"address\": \"Philippines123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors/1?status=completed&date=2025-06-30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"1"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed"
+								},
+								{
+									"key": "date",
+									"value": "2025-06-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vendor Test\",\r\n    \"address\": \"Philippines\",\r\n    \"amount\": \"1000.50\",\r\n    \"expiry_date\": \"2025-12-31\",\r\n    \"status\": \"Pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vendor Test\",\r\n    \"address\": \"Philippines\",\r\n    \"amount\": \"1000.50\",\r\n    \"expiry_date\": \"2025-12-31T00:00:00.000Z\",\r\n    \"status\": \"completed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/payments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/payments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/payments/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON\r",
+							"const responseBody = pm.response.json();\r",
+							"\r",
+							"// Save token to environment variable\r",
+							"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"123123123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON\r",
+							"const responseBody = pm.response.json();\r",
+							"\r",
+							"// Save token to environment variable\r",
+							"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Harold\",\r\n    \"middle_name\": \"Cabasi\",\r\n    \"last_name\": \"Eustaquio\",\r\n    \"email\": \"0110harold@gmail.com\",\r\n    \"password\": \"123123123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseBody = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"AUTH_TOKEN\", responseBody.userData.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTH_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/v1/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
